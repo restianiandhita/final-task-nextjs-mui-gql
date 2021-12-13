@@ -4,13 +4,13 @@
 import Head from 'next/head';
 import styles from '../../styles/Home.module.css'
 import { useQuery } from '@apollo/client'
-import { Grid, Box, Paper, experimentalStyled as styled, Card, CardActionArea, CardContent, CardMedia, Typography } from '@mui/material';
+import { Grid, Box, Paper, experimentalStyled as styled, Card, CardActionArea, CardContent, CardMedia, Typography, FormGroup, FormControlLabel, List, ListItem, IconButton, ListItemAvatar, Avatar, ListItemText, Container } from '@mui/material';
 import InfoIcon from '@mui/icons-material/Info';
 import Image from 'next/image';
 import { withApollo } from '../../lib/apollo/client';
 import NavTabs from '../../components/navbar';
 import { useRouter } from 'next/router';
-import Link from 'next/link';
+import DeleteIcon from '@mui/icons-material/Delete';
 import { useEffect, useState } from 'react';
 
 const Item = styled(Paper)(({ theme }) => ({
@@ -20,7 +20,7 @@ const Item = styled(Paper)(({ theme }) => ({
     color: theme.palette.text.secondary
 }));
 
-const Product = () => {
+const Cart = () => {
     const [cart, setCart] = useState([]);
     let total = 0
 
@@ -53,8 +53,32 @@ const Product = () => {
                 <h3 className={styles.title}>
                     List Cart
                 </h3>
+                <Box sx={{ flexGrow: 3, marginTop: 3}}>
+            <Container maxWidth="xl">
+                <List sx={{ width: '100%', maxWidth: 360, bgcolor: 'rgba(120, 183, 228, 0.1)', borderRadius: 2}}>
+      {cart.map((i, index) => (
+        <ListItem
+          key={index}
+          disableGutters
+          secondaryAction={
+            <IconButton>
+              <DeleteIcon />
+            </IconButton>
+          }
+        >
+        <Avatar src={i.image.url} style={{marginLeft: 10}}/>
+          <ListItemText 
+          primary={i.name} 
+          style={{marginLeft: 10}}
+          secondary={
+              (i.description.html) ? (i.description.html.subStr(0,250) + "...") : " "} />
+        </ListItem>
+      ))}
+    </List>
+    </Container>
+    </Box>
 
-                <Box sx={{ flexGrow: 2 }} style={{ paddingTop: 30 }}>
+                {/* <Box sx={{ flexGrow: 2 }} style={{ paddingTop: 30 }}>
                     <Grid container spacing={{ xs: 2, md: 3 }} columns={{ xs: 4, sm: 8, md: 12 }}>
                         {cart.map((i, index) => (
                             <Grid item xs={4} sm={4} md={4} key={index}>
@@ -80,8 +104,8 @@ const Product = () => {
                             </Grid>
                         ))}
                     </Grid>
-                </Box>
-                <h3>Total : {total}</h3>
+                    <h3>Total : {total}</h3>
+                </Box> */}
             </main>
 
             <footer className={styles.footer}>
@@ -93,4 +117,4 @@ const Product = () => {
     )
 }
 
-export default withApollo({ ssr: true })(Product);
+export default withApollo({ ssr: true })(Cart);

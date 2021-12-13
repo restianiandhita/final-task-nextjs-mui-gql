@@ -6,7 +6,7 @@ import Head from 'next/head';
 import styles from '../../../styles/Home.module.css'
 import { useQuery } from '@apollo/client'
 import { GET_PRODUCT } from '../service/schema'
-import { Button, Box, Paper, experimentalStyled as styled, Stack, CardContent, CardMedia, Typography, Alert } from '@mui/material';
+import { Button, Box, Paper, experimentalStyled as styled, Grid, CardContent, CardMedia, Typography, Alert, Card } from '@mui/material';
 import InfoIcon from '@mui/icons-material/Info';
 import Image from 'next/image';
 import { withApollo } from '../../../lib/apollo/client';
@@ -43,15 +43,16 @@ const Product = () => {
     if (error || loading) return <></>;
     console.log('data detail ', JSON.stringify(data));
     const productData = data.products.items[0]
+     
     const addToCartHandler = () => {
         if (cart.length === 0) {
-            let items = [productData]
-            let save = JSON.stringify(items)
+            let sCart = [productData]
+            let save = JSON.stringify(sCart)
             localStorage.setItem('cart', save)
-        } else {
-            let shopCart = cart;
-            shopCart.push(productData);
-            let save = JSON.stringify(shopCart)
+        } else { 
+            let sCart = cart;
+            sCart.push(productData);
+            let save = JSON.stringify(sCart)
             localStorage.setItem('cart', save)
         }
         setSuccess(true)
@@ -66,13 +67,21 @@ const Product = () => {
                 <link rel="icon" href="/favicon.ico" />
             </Head>
 
-            <main className={styles.main}>
+            <main className={styles.mainProduct}>
+            <Box sx={{ flexGrow: 1 }}>
+            <Grid container spacing={2}>
+            <Grid item xs={6}>
+            <Card sx={{maxWidth: 345, paddingLeft: -5}}>
                 <CardMedia
                     component="img"
-                    height="140"
+                    height= "100%"
+                    width="150"
                     image={productData.image.url}
                 />
-                <CardContent>
+                </Card>
+                </Grid>
+                <Grid item xs={6}>
+                <Card sx={{maxWidth: 345}}>
                     <Box sx={{ flexGrow: 1 }}>
                         <Typography gutterBottom variant="h5" component="div">
                             {productData.name}
@@ -91,7 +100,10 @@ const Product = () => {
                     {success && <Alert severity="success" color="info">
                         Added to Cart !
                     </Alert>}
-                </CardContent>
+                </Card>
+                </Grid>
+                </Grid>
+                </Box>
             </main>
 
             <footer className={styles.footer}>
