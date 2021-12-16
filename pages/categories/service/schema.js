@@ -18,6 +18,7 @@ query getCategories ($categoryKey: String) {
   }) {
     items{
       ...defaultAtributeCategoriesFr
+      url_key
       children{
         ...defaultAtributeCategoriesFr
         url_key

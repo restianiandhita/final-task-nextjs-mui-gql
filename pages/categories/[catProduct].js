@@ -22,7 +22,12 @@ const Item = styled(Paper)(({ theme }) => ({
 
 const Product = () => {
   const router = useRouter();
-  const { loading, error, data } = useQuery(GET_PRODUCT_BY_CATEGORY);
+  const { loading, error, data } = useQuery(GET_PRODUCT_BY_CATEGORY, {
+    variables: {
+      categoryId: router.query.catProduct,
+
+    }
+  });
   if (error || loading) return <></>;
   const { product } = data;
   const { products } = product;
@@ -39,30 +44,30 @@ const Product = () => {
 
       <main className={styles.main}>
         <h3 className={styles.title}>
-          Our {(router.query.catProduct)}
+          Our {(products.categoryId)}
         </h3>
 
         <Box sx={{ flexGrow: 2 }} style={{ paddingTop: 30 }}>
           <Grid container spacing={{ xs: 2, md: 3 }} columns={{ xs: 4, sm: 8, md: 12 }}>
             {products.items.map((i, index) => (
               <Grid item xs={4} sm={4} md={4} key={index}>
-              <Link as={`/categories/products/${i.url_key}`} href={`/categories/products/${i.url_key}`}>
-                <Item style={{ backgroundColor: 'rgba(253, 254, 255, 0.7)', fontWeight: 'bold' }} elevation={6}>
-                  <Card sx={{ maxWidth: '100%', maxHeight: '100%' }}>
-                    <CardActionArea>
-                      <CardMedia
-                        component="img" height="140"
-                        image={i.image.url}
-                        alt={i.name}
-                      />
-                      <CardContent>
-                        <Typography gutterBottom variant="h5" component="div">
-                          {i.name}
-                        </Typography>
-                      </CardContent>
-                    </CardActionArea>
-                  </Card>
-                </Item>
+                <Link as={`/categories/products/${i.url_key}`} href={`/categories/products/${i.url_key}`}>
+                  <Item style={{ backgroundColor: 'rgba(253, 254, 255, 0.7)', fontWeight: 'bold' }} elevation={6}>
+                    <Card sx={{ maxWidth: '100%', maxHeight: '100%' }}>
+                      <CardActionArea>
+                        <CardMedia
+                          component="img" height="100%"
+                          image={i.image.url}
+                          alt={i.name}
+                        />
+                        <CardContent>
+                          <Typography gutterBottom variant="h5" component="div">
+                            {i.name}
+                          </Typography>
+                        </CardContent>
+                      </CardActionArea>
+                    </Card>
+                  </Item>
                 </Link>
               </Grid>
             ))}

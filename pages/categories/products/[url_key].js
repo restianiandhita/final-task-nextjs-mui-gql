@@ -35,15 +35,16 @@ const Product = () => {
     }, [])
 
     const router = useRouter();
+    console.log('router ',router)
     const { loading, error, data } = useQuery(GET_PRODUCT, {
         variables: {
-            urlKey: router.query.idProduct
+            urlKey: router.query.url_key
         }
     });
     if (error || loading) return <></>;
-    console.log('data detail ', JSON.stringify(data));
+    console.log('router ',data)
+    
     const productData = data.products.items[0]
-     
     const addToCartHandler = () => {
         if (cart.length === 0) {
             let sCart = [productData]
@@ -81,8 +82,8 @@ const Product = () => {
                 </Card>
                 </Grid>
                 <Grid item xs={6}>
-                <Card sx={{maxWidth: 345}}>
-                    <Box sx={{ flexGrow: 1 }}>
+                <Card sx={{maxWidth: 500}}>
+                    <Box>
                         <Typography gutterBottom variant="h5" component="div">
                             {productData.name}
                         </Typography>

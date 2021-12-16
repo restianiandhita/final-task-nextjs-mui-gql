@@ -24,6 +24,7 @@ const Category = () => {
     if (error || loading ) return<></>;
     const {mainCategories} = data;
     const {items} = mainCategories;
+    console.log(items)
   return (
     <div className={styles.container}>
     <NavTabs />
@@ -43,7 +44,7 @@ const Category = () => {
         <Grid container spacing={{xs:2, md:3}} columns={{xs:4, sm:8, md:12}}>
         {items.map((i, index) =>(
             <Grid item xs={4} sm={4} md={4} key={index}>
-            <Link as={`/categories/${i.name}`} href={`/categories/${i.name}`}>
+            <Link as={`/categories/${i.id}`} href={`/categories/${i.id}`}>
             <Item style={{backgroundColor:'rgba(253, 254, 255, 0.7)', fontWeight:'bold'}} elevation={6}>
             <Card sx={{maxWidth: '100%'}}>
             <CardActionArea>

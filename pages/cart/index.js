@@ -69,43 +69,13 @@ const Cart = () => {
         <Avatar src={i.image.url} style={{marginLeft: 10}}/>
           <ListItemText 
           primary={i.name} 
-          style={{marginLeft: 10}}
-          secondary={
-              (i.description.html) ? (i.description.html.subStr(0,250) + "...") : " "} />
+          style={{marginLeft: 10}} />
         </ListItem>
       ))}
+      <h3>Total : {total}</h3>
     </List>
     </Container>
     </Box>
-
-                {/* <Box sx={{ flexGrow: 2 }} style={{ paddingTop: 30 }}>
-                    <Grid container spacing={{ xs: 2, md: 3 }} columns={{ xs: 4, sm: 8, md: 12 }}>
-                        {cart.map((i, index) => (
-                            <Grid item xs={4} sm={4} md={4} key={index}>
-                                <Item style={{ backgroundColor: 'rgba(253, 254, 255, 0.7)', fontWeight: 'bold' }} elevation={6}>
-                                    <Card sx={{ maxWidth: 345 }}>
-                                        <CardActionArea>
-                                            <CardMedia
-                                                component="img" height="140"
-                                                image={i.image.url}
-                                                alt={i.name}
-                                            />
-                                            <CardContent>
-                                                <Typography gutterBottom variant="h5" component="div">
-                                                    {i.name}
-                                                </Typography>
-                                                <Typography gutterBottom variant="h5" component="div">
-                                                    {i.price_range.maximum_price.final_price.value}
-                                                </Typography>
-                                            </CardContent>
-                                        </CardActionArea>
-                                    </Card>
-                                </Item>
-                            </Grid>
-                        ))}
-                    </Grid>
-                    <h3>Total : {total}</h3>
-                </Box> */}
             </main>
 
             <footer className={styles.footer}>
